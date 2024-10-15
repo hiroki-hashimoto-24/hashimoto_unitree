@@ -28,7 +28,11 @@ set (
   rclcpp
   std_msgs
   rosbag2_cpp
-  sensor_msgs 
+  sensor_msgs
+  geometry_msgs
+  nav_msgs
+  tf2_geometry_msgs
+  turtlesim
 )
 
 # find dependencies
@@ -39,16 +43,32 @@ find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(rosbag2_cpp REQUIRED)
 find_package(sensor_msgs REQUIRED)
+find_package(geometry_msgs REQUIRED)
+find_package(nav_msgs REQUIRED)
+find_package(tf2_geometry_msgs REQUIRED)
+find_package(turtlesim REQUIRED)
 
 add_executable(sport_prog src/sport_prog.cpp src/common/ros2_sport_client.cpp)
 add_executable(mujoco_prog src/mujoco_prog.cpp src/common/motor_crc.cpp src/common/ros2_sport_client.cpp)
+#add_executable(imu_publisher src/imu_publisher.cpp)
+add_executable(cmd2sport src/cmd2sport.cpp src/common/ros2_sport_client.cpp)
+add_executable(waypoint_pot_goal src/waypoint_pot_goal.cpp)
+add_executable(waypoint_pot_goal_turtlesim src/waypoint_pot_goal_turtlesim.cpp)
 
 ament_target_dependencies(sport_prog ${DEPENDENCY_LIST})
 ament_target_dependencies(mujoco_prog ${DEPENDENCY_LIST})
+#ament_target_dependencies(imu_publisher ${DEPENDENCY_LIST})
+ament_target_dependencies(cmd2sport ${DEPENDENCY_LIST})
+ament_target_dependencies(waypoint_pot_goal ${DEPENDENCY_LIST})
+ament_target_dependencies(waypoint_pot_goal_turtlesim ${DEPENDENCY_LIST})
 
 install(TARGETS 
         sport_prog
         mujoco_prog
+        #imu_publisher
+        cmd2sport
+        waypoint_pot_goal
+        waypoint_pot_goal_turtlesim
         DESTINATION lib/${PROJECT_NAME})
 
 if(BUILD_TESTING)
