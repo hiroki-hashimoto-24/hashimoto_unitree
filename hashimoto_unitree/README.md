@@ -3,10 +3,10 @@
 unitreeに関する自作プログラム
 
 # Dependencies
-unitree_sdk2
-unitree_mujoco
-unitree_ros2
-GLIM
+unitree_sdk2  
+unitree_mujoco  
+unitree_ros2  
+GLIM  
 
 # Install
 ```bash
@@ -36,8 +36,8 @@ high level command
 ros2 run hashimoto_unitree sport_prog
 ```
 
-waypoint navigation
-ファイル読み込みのパスがプログラム直書きなので適宜修正することで使用可能
+waypoint navigation  
+ファイル読み込みのパスがプログラム直書きなので適宜修正することで使用可能  
 ```bash
 ros2 launch livox_ros_driver2 rviz_MID360_launch.py
 ros2 run glim_ros glim_rosnode --ros-args -p config_path:=$(realpath ~colcon_ws/src/git-hashimoto/hashimoto_unitree/glim_config)

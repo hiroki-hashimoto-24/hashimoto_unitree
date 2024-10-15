@@ -1,2 +1,2 @@
 # hashimoto_unitree
-ドキュメントはhashimoto_unitreeの中にあります。
+version 1.1.2
