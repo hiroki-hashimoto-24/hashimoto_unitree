@@ -43,3 +43,5 @@ ros2 launch livox_ros_driver2 rviz_MID360_launch.py
 ros2 run glim_ros glim_rosnode --ros-args -p config_path:=$(realpath ~colcon_ws/src/git-hashimoto/hashimoto_unitree/glim_config)
 ros2 launch hashimoto_unitree waypoint.launch.py
 ```
+
+PC引き継ぎのテスト
