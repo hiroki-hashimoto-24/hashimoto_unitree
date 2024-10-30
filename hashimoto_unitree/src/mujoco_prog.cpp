@@ -1,5 +1,5 @@
-// これはUnitreeの練習用のプログラム おすわりする
-// 240048 hashimoto
+// Unitree mujocoでロボット犬がおすわりするプログラム
+// hashimoto240048@gmail.com
 // 2024.7.17~
 #include "rclcpp/rclcpp.hpp"
 #include "unitree_go/msg/low_cmd.hpp"

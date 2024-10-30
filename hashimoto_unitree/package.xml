@@ -3,8 +3,8 @@
 <package format="3">
   <name>hashimoto_unitree</name>
   <version>0.0.0</version>
-  <description>TODO: Package description</description>
-  <maintainer email="hashimoto@todo.todo">hashimoto</maintainer>
+  <description>Additional programs for unitree go2</description>
+  <maintainer email="hashimoto240048@gmail.com">Hiroki Hashimoto</maintainer>
   <license>TODO: License declaration</license>
 
   <buildtool_depend>ament_cmake</buildtool_depend>

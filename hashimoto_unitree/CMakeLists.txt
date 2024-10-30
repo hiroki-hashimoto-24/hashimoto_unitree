@@ -47,29 +47,49 @@ find_package(geometry_msgs REQUIRED)
 find_package(nav_msgs REQUIRED)
 find_package(tf2_geometry_msgs REQUIRED)
 find_package(turtlesim REQUIRED)
+find_package(Eigen3 REQUIRED)
 
 add_executable(sport_prog src/sport_prog.cpp src/common/ros2_sport_client.cpp)
 add_executable(mujoco_prog src/mujoco_prog.cpp src/common/motor_crc.cpp src/common/ros2_sport_client.cpp)
-#add_executable(imu_publisher src/imu_publisher.cpp)
+add_executable(imu_publisher src/imu_publisher.cpp)
 add_executable(cmd2sport src/cmd2sport.cpp src/common/ros2_sport_client.cpp)
 add_executable(waypoint_pot_goal src/waypoint_pot_goal.cpp)
 add_executable(waypoint_pot_goal_turtlesim src/waypoint_pot_goal_turtlesim.cpp)
+add_executable(rotate_matrix src/rotate_matrix.cpp)
+add_executable(goal_pose_editor src/goal_pose_editor.cpp)
 
 ament_target_dependencies(sport_prog ${DEPENDENCY_LIST})
 ament_target_dependencies(mujoco_prog ${DEPENDENCY_LIST})
-#ament_target_dependencies(imu_publisher ${DEPENDENCY_LIST})
+ament_target_dependencies(imu_publisher ${DEPENDENCY_LIST})
 ament_target_dependencies(cmd2sport ${DEPENDENCY_LIST})
 ament_target_dependencies(waypoint_pot_goal ${DEPENDENCY_LIST})
 ament_target_dependencies(waypoint_pot_goal_turtlesim ${DEPENDENCY_LIST})
+ament_target_dependencies(goal_pose_editor ${DEPENDENCY_LIST})
+
+target_include_directories(rotate_matrix
+  PUBLIC
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+    $<BUILD_INTERFACE:${EIGEN3_INCLUDE_DIR}>
+    $<INSTALL_INTERFACE:include>
+)
+
+ament_target_dependencies(rotate_matrix ${DEPENDENCY_LIST})
 
 install(TARGETS 
         sport_prog
         mujoco_prog
-        #imu_publisher
+        imu_publisher
         cmd2sport
         waypoint_pot_goal
         waypoint_pot_goal_turtlesim
+        rotate_matrix
+        goal_pose_editor
         DESTINATION lib/${PROJECT_NAME})
+        
+install(
+  DIRECTORY launch
+  DESTINATION share/${PROJECT_NAME}
+)
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
