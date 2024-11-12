@@ -1,15 +1,15 @@
 {
   "glim_ros": {
-    // Backend modules
+
     "enable_local_mapping": true,
     "enable_global_mapping": true,
-    // Points config
+
     "keep_raw_points": false,
-    // IMU config
+
     "imu_time_offset": 0.0,
     "points_time_offset": 0.0,
     "acc_scale": 9.81,
-    // TF config
+
     "imu_frame_id": "imu",
     "lidar_frame_id": "lidar",
     "base_frame_id": "",
@@ -17,7 +17,7 @@
     "map_frame_id": "map",
     "publish_imu2lidar": true,
     "tf_time_offset": 1e-6,
-    // Extension modules
+
     "extension_modules": [
       "libmemory_monitor.so",
       "libstandard_viewer.so",

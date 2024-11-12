@@ -9,11 +9,12 @@ def generate_launch_description():
         parameters=[{'mode': LaunchConfiguration('mode')},
                     {'file_name': LaunchConfiguration('file_name')},
                     {'speed': LaunchConfiguration('speed')}],
-        remappings=[('/odometry', '/glim_ros/odom')],
+        #remappings=[('/odometry', '/utlidar/robot_odom')],
+        remappings=[('/odometry', 'glim_ros/odom')],
         output = "screen",
     )
     cmd2sport_node = Node(
-        package = "my_unitree",
+        package = "hashimoto_unitree",
         executable = "cmd2sport",
     )
 

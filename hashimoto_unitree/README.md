@@ -2,16 +2,19 @@
 
 unitreeに関する自作プログラム
 
+絶対パスで記述している箇所は適宜各個人のインストール場所(ユーザー名)に変更して使用してください
+
 # Dependencies
 unitree_sdk2  
 unitree_mujoco  
 unitree_ros2  
 GLIM  
 fast_lio(パーソルテクノロジー版)  
+obstacle_detector  
 
 # Install
 ```bash
-mkdir -p colcon_ws/src
+mkdir -p ros2_ws/src
 cd colcon_ws/src
 git clone https://github.com/hiroki-hashimoto-24/hashimoto_unitree.git
 cd ..
@@ -39,7 +42,7 @@ ros2 run hashimoto_unitree sport_prog
 
 glim  
 ```bash
-ros2 run glim_ros glim_rosnode --ros-args -p config_path:=$(realpath ~colcon_ws/src/git-hashimoto/hashimoto_unitree/glim_config)
+ros2 run glim_ros glim_rosnode --ros-args -p config_path:=$(realpath ~ros2_ws/src/git-hashimoto/hashimoto_unitree/glim_config)
 ```
 
 fast_lio_localizationと経路作成  
@@ -60,4 +63,10 @@ waypoint navigation
 ```bash
 ros2 launch livox_ros_driver2 rviz_MID360_launch.py
 ros2 launch hashimoto_unitree waypoint.launch.py
+```
+
+obstacle_detector  
+```bash
+ros2 launch hashimoto_unitree lidar_imu_cmd2sport.launch.py
+ros2 launch hashimoto_unitree obstacle_detector.launch.py use_rviz:=true
 ```

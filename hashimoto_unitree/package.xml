@@ -22,6 +22,8 @@
   <depend>nav_msgs</depend>
   <depend>tf2_geometry_msgs</depend>
   <depend>turtlesim</depend>
+  <depend>visualization_msgs</depend>
+  <depend>obstacle_detector</depend>
 
   <exec_depend>ros2launch</exec_depend>
 
