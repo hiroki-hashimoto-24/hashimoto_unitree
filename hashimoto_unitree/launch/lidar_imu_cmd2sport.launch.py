@@ -25,12 +25,6 @@ def generate_launch_description():
         executable = "cmd2sport_stop",
         output='screen'
     )
-
-    # cmd2climb_node = Node(
-    #     package = "hashimoto_unitree",
-    #     executable = "cmd2climb",
-    #     output='screen'
-    # )
     
     msg_MID360_cmd = IncludeLaunchDescription(
         PythonLaunchDescriptionSource([os.path.join(

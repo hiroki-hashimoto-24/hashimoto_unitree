@@ -3,18 +3,22 @@
 unitreeに関する自作プログラム
 
 絶対パスで記述している箇所は適宜各個人のインストール場所(ユーザー名)に変更して使用してください
+特にlaunchファイルが絶対パス直書きの箇所が多いので変更する必要があります
 
 # Dependencies
 unitree_sdk2  
 unitree_mujoco  
 unitree_ros2  
+livox_ros_driver2  
 GLIM  
+ply_to_pcd  
+pointcloud_to_2dmap  
 fast_lio(パーソルテクノロジー版)  
 obstacle_detector  
 
 # Install
 ```bash
-mkdir -p ros2_ws/src
+mkdir -p colcon_ws/src
 cd colcon_ws/src
 git clone https://github.com/hiroki-hashimoto-24/hashimoto_unitree.git
 cd ..
@@ -42,25 +46,52 @@ ros2 run hashimoto_unitree sport_prog
 
 glim  
 ```bash
-ros2 run glim_ros glim_rosnode --ros-args -p config_path:=$(realpath ~ros2_ws/src/git-hashimoto/hashimoto_unitree/glim_config)
+ros2 run glim_ros glim_rosnode --ros-args -p config_path:=$(realpath ~colcon_ws/src/hashimoto_unitree/glim_config) -p dump_path:=$(realpath ~/colcon_ws/src/hashimoto_unitree/glim_map)
+ros2 launch livox_ros_driver2 rviz_MID360_launch.py
+```
+```bash
+ros2 run glim_ros offline_viewer
+```
+
+.ply->.pcd  
+```bash
+cd ~/ply_to_pcd/build
+./ply_to_pcd ~/colcon_ws/src/hashimoto_unitree/glim_map/glim_map.ply
+eog ~/colcon_ws/src/my_unitree/glim_map/map.png
+```
+
+fast_lio_localizationによる地図作成
+```bash
+ros2 launch conory1_fast_lio mapping.launch.py
+ros2 launch livox_ros_driver2 msg_MID360_launch.py
+```
+```bash
+ros2 service call /map_save fast_lio/srv/MapSave "filepath: $HOME/colcon_ws/src/hashimoto_unitree/fast_lio_map/fast_lio.pcd"
+pcl_viewer result.pcd
+```
+```bash
+cd ~/pointcloud_to_2dmap/build
+./pointcloud_to_2dmap -w 400 -h 400 ~/colcon_ws/src/hashimoto_unitree/fast_lio_map/fast_lio.pcd ~/colcon_ws/src/hashimoto_unitree/fast_lio_map
+eog ~/colcon_ws/src/hashimoto_unitree/fast_lio_map/map.png
 ```
 
 fast_lio_localizationと経路作成  
 ```bash
-ros2 launch conory1_navigation2 conory1_navigation.launch.py map:=/home/hashimoto/pointcloud_to_2dmap/map/map.yaml use_rviz:=true
-ros2 run my_unitree goal_pose_editor --ros-args -p file_name:=sample1.csv
+ros2 launch conory1_navigation2 conory1_navigation.launch.py map:=/home/hashimoto/colcon_ws/src/hashimoto_unitree/fast_lio_map/map.yaml use_rviz:=true
+ros2 run hashimoto_unitree goal_pose_editor --ros-args -p file_name:=sample1.csv
 ```
 
 navigation2の利用  
 ```bash
 ros2 launch hashimoto_unitree lidar_imu_cmd2sport.launch.py
-ros2 launch conory1_fast_lio localization.launch.py map:=/home/hashimoto/ros2_ws/src/fast_lio/PCD/result.pcd use_rviz:=false
-ros2 launch nav2_waypoint_publisher patrol_waypoints_publisher.launch.py waypoints:=/home/hashimoto/colcon_ws/src/my_unitree/nav2_waypoint/test3.csv number_of_loops:=0
+ros2 launch conory1_fast_lio localization.launch.py map:=/home/hashimoto/colcon_ws/src/hashimoto_unitree/fast_lio_map/fast_lio.pcd use_rviz:=false
+ros2 launch nav2_waypoint_publisher patrol_waypoints_publisher.launch.py waypoints:=/home/hashimoto/colcon_ws/src/hashimoto_unitree/nav2_waypoint/root9.csv number_of_loops:=0
 ```
 
 waypoint navigation  
 ファイル読み込みのパスがプログラム直書きなので適宜修正することで使用可能  
 ```bash
+ros2 run glim_ros glim_rosnode --ros-args -p config_path:=$(realpath ~colcon_ws/src/hashimoto_unitree/glim_config) -p dump_path:=$(realpath ~/colcon_ws/src/hashimoto_unitree/glim_map)
 ros2 launch livox_ros_driver2 rviz_MID360_launch.py
 ros2 launch hashimoto_unitree waypoint.launch.py
 ```
@@ -69,4 +100,16 @@ obstacle_detector
 ```bash
 ros2 launch hashimoto_unitree lidar_imu_cmd2sport.launch.py
 ros2 launch hashimoto_unitree obstacle_detector.launch.py use_rviz:=true
+```
+
+自律移動のデモ  
+```bash
+ros2 launch my_unitree navigation2_demo.launch.py
+ros2 launch nav2_waypoint_publisher patrol_waypoints_publisher.launch.py waypoints:=/home/hashimoto/colcon_ws/src/my_unitree/nav2_waypoint/root9.csv number_of_loops:=0
+```
+
+段差の登り降り(段差位置既知)のデモ  
+```bash
+ros2 launch my_unitree climb_demo.launch.py
+ros2 launch my_unitree waypoint_climb.launch.py mode:=2 file_name:=root1.csv speed:=0.2
 ```

@@ -61,10 +61,11 @@ add_executable(waypoint_pot_goal src/waypoint_pot_goal.cpp)
 add_executable(waypoint_pot_goal_turtlesim src/waypoint_pot_goal_turtlesim.cpp)
 add_executable(rotate_matrix src/rotate_matrix.cpp)
 add_executable(goal_pose_editor src/goal_pose_editor.cpp)
-add_executable(cmd2climb src/cmd2climb.cpp src/common/ros2_sport_client.cpp)
+add_executable(cmd2climb_waypoint src/cmd2climb_waypoint.cpp src/common/ros2_sport_client.cpp)
 add_executable(height_map src/height_map.cpp)
 add_executable(obstacle_hit src/obstacle_hit.cpp)
 add_executable(cmd2sport_stop src/cmd2sport_stop.cpp src/common/ros2_sport_client.cpp)
+add_executable(waypoint_pot_climb src/waypoint_pot_climb.cpp)
 
 target_include_directories(rotate_matrix
   PUBLIC
@@ -80,10 +81,11 @@ ament_target_dependencies(cmd2sport ${DEPENDENCY_LIST})
 ament_target_dependencies(waypoint_pot_goal ${DEPENDENCY_LIST})
 ament_target_dependencies(waypoint_pot_goal_turtlesim ${DEPENDENCY_LIST})
 ament_target_dependencies(goal_pose_editor ${DEPENDENCY_LIST})
-ament_target_dependencies(cmd2climb ${DEPENDENCY_LIST})
+ament_target_dependencies(cmd2climb_waypoint ${DEPENDENCY_LIST})
 ament_target_dependencies(height_map ${DEPENDENCY_LIST})
 ament_target_dependencies(obstacle_hit ${DEPENDENCY_LIST})
 ament_target_dependencies(cmd2sport_stop ${DEPENDENCY_LIST})
+ament_target_dependencies(waypoint_pot_climb ${DEPENDENCY_LIST})
 
 ament_target_dependencies(rotate_matrix ${DEPENDENCY_LIST})
 
@@ -96,10 +98,11 @@ install(TARGETS
         waypoint_pot_goal_turtlesim
         rotate_matrix
         goal_pose_editor
-        cmd2climb
+        cmd2climb_waypoint
         height_map
         obstacle_hit
         cmd2sport_stop
+        waypoint_pot_climb
         DESTINATION lib/${PROJECT_NAME})
         
 install(

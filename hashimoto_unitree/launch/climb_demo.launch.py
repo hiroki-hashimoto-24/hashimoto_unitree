@@ -17,14 +17,14 @@ def generate_launch_description():
     glim_ros_node = Node(
         package = "glim_ros",
         executable = "glim_rosnode",
-        parameters = [{'config_path': "/home/hashimoto/ros2_ws/src/hashimoto_unitree/glim_config"},
-                    {'dump_path': "/home/hashimoto/ros2_ws/src/hashimoto_unitree/glim_map"}],
+        parameters = [{'config_path': "/home/hashimoto/colcon_ws/src/hashimoto_unitree/glim_config"},
+                    {'dump_path': "/home/hashimoto/colcon_ws/src/hashimoto_unitree/glim_map"}],
         output='screen'
     )
 
     cmd2climb_node = Node(
         package = "hashimoto_unitree",
-        executable = "cmd2climb",
+        executable = "cmd2climb_waypoint",
         output='screen'
     )
 

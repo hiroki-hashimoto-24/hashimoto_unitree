@@ -19,7 +19,7 @@ def generate_launch_description():
             get_package_share_directory('conory1_fast_lio'),
             'launch/'),'localization.launch.py']),
         launch_arguments={
-            "map": "/home/hashimoto/ros2_ws/src/hashimoto_unitree/glim_map/glim_map.pcd",
+            "map": "/home/hashimoto/colcon_ws/src/hashimoto_unitree/fast_lio_map/fast_lio.pcd",
             "use_rviz": "false",
         }.items()
     )
@@ -29,7 +29,7 @@ def generate_launch_description():
             get_package_share_directory('conory1_navigation2'),
             'launch/'),'conory1_navigation.launch.py']),
         launch_arguments={
-            "map": "/home/hashimoto/ros2_ws/src/hashimoto_unitree/glim_map/map.yaml",
+            "map": "/home/hashimoto/colcon_ws/src/hashimoto_unitree/fast_lio_map/map.yaml",
             "use_rviz": "true",
         }.items()
     )
