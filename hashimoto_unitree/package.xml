@@ -24,6 +24,7 @@
   <depend>turtlesim</depend>
   <depend>visualization_msgs</depend>
   <depend>obstacle_detector</depend>
+  <depend>OpenCV</depend>
 
   <exec_depend>ros2launch</exec_depend>
 

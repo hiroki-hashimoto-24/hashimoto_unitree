@@ -104,12 +104,21 @@ ros2 launch hashimoto_unitree obstacle_detector.launch.py use_rviz:=true
 
 自律移動のデモ  
 ```bash
-ros2 launch my_unitree navigation2_demo.launch.py
-ros2 launch nav2_waypoint_publisher patrol_waypoints_publisher.launch.py waypoints:=/home/hashimoto/colcon_ws/src/my_unitree/nav2_waypoint/root9.csv number_of_loops:=0
+ros2 launch hashimoto_unitree navigation2_demo.launch.py
+ros2 launch nav2_waypoint_publisher patrol_waypoints_publisher.launch.py waypoints:=/home/hashimoto/colcon_ws/src/hashimoto_unitree/nav2_waypoint/root9.csv number_of_loops:=0
 ```
 
 段差の登り降り(段差位置既知)のデモ  
 ```bash
-ros2 launch my_unitree climb_demo.launch.py
-ros2 launch my_unitree waypoint_climb.launch.py mode:=2 file_name:=root1.csv speed:=0.2
+ros2 launch hashimoto_unitree climb_demo.launch.py
+ros2 launch hashimoto_unitree waypoint_climb.launch.py mode:=2 file_name:=root1.csv speed:=0.2
+```
+
+段差を見つけて登り降りする
+```bash
+ros2 run glim_ros glim_rosnode --ros-args -p config_path:=$(realpath ~/colcon_ws/src/hashimoto_unitree/glim_config) -p dump_path:=$(realpath ~/colcon_ws/src/hashimoto_unitree/glim_map)
+ros2 launch livox_ros_driver2 rviz_MID360_launch.py
+ros2 run hashimoto_unitree cmd2climb_down
+ros2 launch hashimoto_unitree height_map.launch.py use_rviz:=true
+ros2 run hashimoto_unitree waypoint_pot_goal --ros-args -p mode:=2 -p file_name:=front1.csv -p speed:=0.2 --remap odometry:=glim_ros/odom
 ```

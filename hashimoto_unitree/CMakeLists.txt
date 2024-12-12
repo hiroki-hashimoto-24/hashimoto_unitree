@@ -35,6 +35,7 @@ set (
   turtlesim
   visualization_msgs
   obstacle_detector
+  OpenCV
 )
 
 # find dependencies
@@ -52,6 +53,7 @@ find_package(turtlesim REQUIRED)
 find_package(Eigen3 REQUIRED)
 find_package(visualization_msgs REQUIRED)
 find_package(obstacle_detector REQUIRED)
+find_package(OpenCV REQUIRED)
 
 add_executable(sport_prog src/sport_prog.cpp src/common/ros2_sport_client.cpp)
 add_executable(mujoco_prog src/mujoco_prog.cpp src/common/motor_crc.cpp src/common/ros2_sport_client.cpp)
@@ -66,6 +68,8 @@ add_executable(height_map src/height_map.cpp)
 add_executable(obstacle_hit src/obstacle_hit.cpp)
 add_executable(cmd2sport_stop src/cmd2sport_stop.cpp src/common/ros2_sport_client.cpp)
 add_executable(waypoint_pot_climb src/waypoint_pot_climb.cpp)
+add_executable(cmd2climb_down src/cmd2climb_down.cpp src/common/ros2_sport_client.cpp)
+add_executable(height_map_sh_width src/height_map_sh_width.cpp src/common/ros2_sport_client.cpp)
 
 target_include_directories(rotate_matrix
   PUBLIC
@@ -86,6 +90,8 @@ ament_target_dependencies(height_map ${DEPENDENCY_LIST})
 ament_target_dependencies(obstacle_hit ${DEPENDENCY_LIST})
 ament_target_dependencies(cmd2sport_stop ${DEPENDENCY_LIST})
 ament_target_dependencies(waypoint_pot_climb ${DEPENDENCY_LIST})
+ament_target_dependencies(cmd2climb_down ${DEPENDENCY_LIST})
+ament_target_dependencies(height_map_sh_width ${DEPENDENCY_LIST})
 
 ament_target_dependencies(rotate_matrix ${DEPENDENCY_LIST})
 
@@ -103,6 +109,8 @@ install(TARGETS
         obstacle_hit
         cmd2sport_stop
         waypoint_pot_climb
+        cmd2climb_down
+        height_map_sh_width
         DESTINATION lib/${PROJECT_NAME})
         
 install(
