@@ -34,11 +34,11 @@ public:
 
 private:
 
-    void cmd_callback(geometry_msgs::msg::Twist data)
+    void cmd_callback(const geometry_msgs::msg::Twist::SharedPtr data)
     {
-        float vx = data.linear.x;
-        float vy = data.linear.y;
-        float vyaw = data.angular.z;
+        float vx = data->linear.x;
+        float vy = data->linear.y;
+        float vyaw = data->angular.z;
 
         if(stop_flag == 1){
             sport_req.StopMove(req);
@@ -69,8 +69,8 @@ private:
         req_puber->publish(req);
     }
 
-    void object_callback(std_msgs::msg::Int64 data){
-        if(int(data.data) == 1){
+    void object_callback(const std_msgs::msg::Int64::SharedPtr data){
+        if(int(data->data) == 1){
             stop_flag = 1;
         }else{
             stop_flag = 0;

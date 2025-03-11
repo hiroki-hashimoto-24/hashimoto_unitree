@@ -1,0 +1,58 @@
+GLIM
+ssh -XY unitree@192.168.12.102
+./nomachine
+
+sudo date -s "3/8 15:31 2025"
+
+unitree
+------
+cd ~/shell
+./rosbag_shell.sh
+
+notePC
+------
+cd ~/bag_file
+scp -r unitree@192.168.12.102://home/unitree/bag_file/rosbag2_2025_03_07-10_43_25 .
+
+ros2 run glim_ros glim_rosnode --ros-args -p config_path:=$(realpath ~/colcon_ws/src/hashimoto_unitree/glim_config) -p dump_path:=$(realpath ~/colcon_ws/src/hashimoto_unitree/glim_map/map5)
+cd ~/bag_file
+ros2 bag play rosbag2_2025_03_07-10_43_25
+
+ros2 run glim_ros offline_viewer --config ~/colcon_ws/src/hashimoto_unitree/glim_config
+
+cd ~/shell
+./pcl_shell.sh
+
+cd ~/colcon_ws/src/hashimoto_unitree/glim_map
+scp -r map5 unitree@192.168.12.102://home/unitree/docker_dir/share/colcon_ws/src/hashimoto_unitree/glim_map
+
+======
+FAST_LIO
+
+ssh -XY unitree@192.168.12.102
+./nomachine
+
+path create
+unitree
+------
+docker run -it --rm --name ros2_humble --network=host --ipc=host --mount type=bind,src=/home/unitree/docker_dir/share,dst=/home/unitree -e DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix -v $HOME/.Xauthority:/home/unitree/.Xauthority -u unitree ros2_humble
+
+docker exec -u unitree -i -t ros2_humble bash
+
+ros2 launch conory1_navigation2 conory1_navigation.launch.py map:=/home/unitree/colcon_ws/src/hashimoto_unitree/glim_map/map6/map.yaml use_rviz:=true
+
+ros2 run hashimoto_unitree goal_pose_editor --ros-args -p file_name:=test0308_3.csv
+
+navgation
+unitree
+------
+~/shell/go2_shell.sh
+
+ros2 launch hashimoto_unitree go2_docker_nav2.launch.py
+
+ros2 launch nav2_waypoint_publisher patrol_waypoints_publisher.launch.py waypoints:=/home/unitree/colcon_ws/src/hashimoto_unitree/nav2_waypoint/test0308_3.csv number_of_loops:=0
+
+======
+camera
+ros2 launch hashimoto_unitree unitree_camera.launch.py
+ros2 launch realsense_examples rs_camera.launch.py

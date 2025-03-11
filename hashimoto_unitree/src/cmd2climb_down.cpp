@@ -34,11 +34,11 @@ public:
 
 private:
 
-    void cmd_callback(geometry_msgs::msg::Twist data)
+    void cmd_callback(geometry_msgs::msg::Twist::SharedPtr data)
     {
-        float vx = data.linear.x;
-        float vy = data.linear.y;
-        float vyaw = data.angular.z;
+        float vx = data->linear.x;
+        float vy = data->linear.y;
+        float vyaw = data->angular.z;
         
         if(timer_flag==0){
             if(fabs(vx) < MIN_SPEED && fabs(vy) < MIN_SPEED && fabs(vyaw) < MIN_SPEED){
@@ -64,29 +64,29 @@ private:
         }
     }
 
-    void status_callback(std_msgs::msg::Int64 data)
+    void status_callback(std_msgs::msg::Int64::SharedPtr data)
     {
-        if(prev_climb!=data.data){
+        if(prev_climb!=data->data){
             timer_flag = 1;
         }
-        prev_climb=data.data;
+        prev_climb=data->data;
         if(timer_flag == 1){
             sport_req.StopMove(req);
             req_puber->publish(req);
 
-            if(data.data==0){
+            if(data->data==1){
                 //通常モード
-                sport_req.SwitchGait(req, 0);
-            }else if(data.data==3){
+                sport_req.SwitchGait(req, 1);
+            }else if(data->data==3){
                 //上りモード
                 sport_req.SwitchGait(req, 3);
-            }else if(data.data==4){
+            }else if(data->data==4){
                 //下りモード
                 sport_req.SwitchGait(req, 4);
             }else{
                 //例外処理
                 //通常モード(暫定)
-                sport_req.SwitchGait(req, 0);
+                sport_req.SwitchGait(req, 1);
                 //sport_req.StopMove(req);
             }
             req_puber->publish(req);

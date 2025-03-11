@@ -30,11 +30,11 @@ public:
 
 private:
 
-    void cmd_callback(geometry_msgs::msg::Twist data)
+    void cmd_callback(const geometry_msgs::msg::Twist::SharedPtr data)
     {
-        float vx = data.linear.x;
-        float vy = data.linear.y;
-        float vyaw = data.angular.z;
+        float vx = data->linear.x;
+        float vy = data->linear.y;
+        float vyaw = data->angular.z;
 
         if(fabs(vx) < MIN_SPEED && fabs(vy) < MIN_SPEED && fabs(vyaw) < MIN_SPEED){
             sport_req.StopMove(req);

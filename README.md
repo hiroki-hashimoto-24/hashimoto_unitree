@@ -1,2 +1,2 @@
 # hashimoto_unitree
-Version 1.5.2
+Version 1.6.1

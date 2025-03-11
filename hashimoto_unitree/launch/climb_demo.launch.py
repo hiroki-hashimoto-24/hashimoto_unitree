@@ -17,8 +17,8 @@ def generate_launch_description():
     glim_ros_node = Node(
         package = "glim_ros",
         executable = "glim_rosnode",
-        parameters = [{'config_path': "/home/hashimoto/colcon_ws/src/hashimoto_unitree/glim_config"},
-                    {'dump_path': "/home/hashimoto/colcon_ws/src/hashimoto_unitree/glim_map"}],
+        parameters = [{'config_path': "/home/unitree/colcon_ws/src/hashimoto_unitree/glim_config"},
+                    {'dump_path': "/home/unitree/colcon_ws/src/hashimoto_unitree/glim_map"}],
         output='screen'
     )
 

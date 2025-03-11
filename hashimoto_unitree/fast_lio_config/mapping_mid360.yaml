@@ -12,7 +12,7 @@ laser_mapping:
         filter_size_map: 0.5
         cube_side_length: 1000.0
         runtime_pos_log_enable: false
-        map_file_path: "/home/hashimoto/ros2_ws/src/fast_lio/PCD/result.pcd"
+        map_file_path: "/home/unitree/ros2_ws/src/fast_lio/PCD/result.pcd"
 
         common:
             lid_topic:  "/livox/lidar"

@@ -52,7 +52,7 @@ private:
     void setParam(){
         string file_path;
         string file_name;
-        string default_file_path = ament_index_cpp::get_package_prefix("my_unitree");
+        string default_file_path = ament_index_cpp::get_package_prefix("hashimoto_unitree");
         default_file_path = replaceOtherStr(default_file_path,"install","src") + "/nav2_waypoint/";
         this->declare_parameter<string>("file_path", default_file_path);
         this->get_parameter<string>("file_path", file_path);

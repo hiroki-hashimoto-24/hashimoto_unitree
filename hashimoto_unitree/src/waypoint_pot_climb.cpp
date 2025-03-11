@@ -296,14 +296,12 @@ void OdomTwist::readFile(){
 	}else if(mode_==2){
 		//ファイル読み込みモード
 		//スペースと改行コードからなるwaypoint.csvを読み込む.最終入力行は改行コード不要.
-		char *user;
-		if ((user = getlogin()) == NULL) perror("getlogin() error");
-		string fileName1="/home/"+(string)user+"/colcon_ws/src/my_unitree/waypoint/"+file_name_;
+		string fileName1="/home/unitree/colcon_ws/src/hashimoto_unitree/waypoint/"+file_name_;
 		ifstream fs1;
 		fs1.open(fileName1, ios::in);
 		if(!fs1){
 			cout<< file_name_ << "が開けないよ" << endl;
-			cout << "ファイルは ~/colcon_ws/src/my_unitree/waypoint/ に置いてください" << endl;
+			cout << "ファイルは ~/colcon_ws/src/hashimoto_unitree/waypoint/ に置いてください" << endl;
 		}else{
 			cout<< fileName1 << endl;
 			string line;
