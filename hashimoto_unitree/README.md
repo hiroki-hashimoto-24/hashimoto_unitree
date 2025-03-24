@@ -14,6 +14,7 @@ GLIM
 ply_to_pcd  
 pointcloud_to_2dmap  
 fast_lio(パーソルテクノロジー版)  
+navigation2(パーソルテクノロジー版)  
 obstacle_detector  
 
 # Install
